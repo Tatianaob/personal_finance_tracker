@@ -56,3 +56,10 @@ class FinanceTracker:
 
     def list_transactions(self):
         return self.transactions
+    
+    def filter_by_category(self, category):
+        return [t for t in self.transactions if t.category.lower() == category.lower()]
+
+    def filter_by_date(self, date_str):
+        return [t for t in self.transactions if t.date == date_str]
+
