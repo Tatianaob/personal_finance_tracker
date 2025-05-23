@@ -8,6 +8,8 @@ def main():
         print("1. Add transaction")
         print("2. View all transactions")
         print("3. Show summary")
+        print("4. Filter by category")
+        print("5. Filter by date")
         print("4. Exit")
 
         choice = input("Choose an option: ")
