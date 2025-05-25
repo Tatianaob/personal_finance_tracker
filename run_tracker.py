@@ -10,7 +10,8 @@ def main():
         print("3. Show summary")
         print("4. Filter by category")
         print("5. Filter by date")
-        print("6. Exit")
+        print("6. Category summary")
+        print("7. Exit")
 
         choice = input("Choose an option: ")
 
@@ -48,10 +49,20 @@ def main():
                     print(f"{t.date} | ${t.amount:.2f} | {t.category} | {t.description}")
             else:
                 print("No transactions found for this date.")
-        #     print("👋 Goodbye!")
-        #     break
-        # else:
-        #     print("❌ Invalid choice.")
+
+        elif choice == "6":
+            summary = tracker.category_summary()
+            if summary:
+                print("\nCategory Summary:")
+                for cat, data in summary.items():
+                    print(f"{cat.capitalize()}: {data['count']} transactions, ${data['total']:.2f}")
+            else:
+                print("No transactions to summarize.")
+        elif choice == "7":
+            print("👋 Goodbye!")
+            break
+        else:
+            print("❌ Invalid choice.")
 
 if __name__ == "__main__":
     main()
