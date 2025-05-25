@@ -63,3 +63,14 @@ class FinanceTracker:
     def filter_by_date(self, date_str):
         return [t for t in self.transactions if t.date == date_str]
 
+    def category_summary(self):
+        summary = {}
+        for t in self.transactions:
+            key = t.category.lower()
+            if key not in summary:
+                summary[key] = {"total": 0, "count": 0}
+            summary[key]["total"] += t.amount
+            summary[key]["count"] += 1
+        return summary
+
+
