@@ -11,7 +11,8 @@ def main():
         print("4. Filter by category")
         print("5. Filter by date")
         print("6. Category summary")
-        print("7. Exit")
+        print("7. Show category plot")
+        print("8. Exit")
 
         choice = input("Choose an option: ")
 
@@ -58,7 +59,11 @@ def main():
                     print(f"{cat.capitalize()}: {data['count']} transactions, ${data['total']:.2f}")
             else:
                 print("No transactions to summarize.")
+
         elif choice == "7":
+            tracker.plot_category_summary()
+            
+        elif choice == "8":
             print("👋 Goodbye!")
             break
         else:
