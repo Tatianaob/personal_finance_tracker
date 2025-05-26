@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 DATA_FILE = Path("data/transactions.json")
 
@@ -72,5 +73,21 @@ class FinanceTracker:
             summary[key]["total"] += t.amount
             summary[key]["count"] += 1
         return summary
+    
+    def plot_category_summary(self):
+        summary = self.category_summary()
+        if not summary:
+            print("No transactions to visualize")
+            return
+        categories = list(summary.keys())
+        totals = [summary[cat]["total"] for cat in categories]
 
+        plt.figure(figsize=(10, 5))
+        plt.bar(categories, totals, color="skyblue")
+        plt.title("Spending by Category")
+        plt.xlabel("Category")
+        plt.ylabel("Total Spent ($)")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
 
