@@ -61,6 +61,19 @@ class TestFinanceTracker(unittest.TestCase):
         result = self.tracker.filter_by_category("Clothing")
         self.assertEqual(result, [])
 
+    def test_filter_by_nonexistent_date(self):
+        t1 = Transaction(200, "Rent", "April")
+        self.tracker.transactions = [t1]
+        result = self.tracker.filter_by_date("1999-01-01")
+        self.assertEqual(result, [])
+
+    def test_duplicate_transactions(self):
+        t1 = Transaction(10, "Snacks", "Chips")
+        t2 = Transaction(10, "Snacks", "Chips")  # identical
+        self.tracker.transactions = [t1, t2]
+        summary = self.tracker.category_summary()
+        self.assertEqual(summary["snacks"]["count"], 2)
+        self.assertEqual(summary["snacks"]["total"], 20)
 
 if __name__ == '__main__':
     unittest.main()
