@@ -42,6 +42,25 @@ class TestFinanceTracker(unittest.TestCase):
         self.assertEqual(summary["food"]["count"], 2)
         self.assertEqual(summary["food"]["total"], 30)
         self.assertEqual(summary["rent"]["total"], 100)
+    
+    def test_empty_transaction_list(self):
+        self.assertEqual(len(self.tracker.transactions), 0)
+        self.assertEqual(self.tracker.category_summary(), {})
+
+    def test_zero_and_negative_amounts(self):
+        zero = Transaction(0, "Misc", "Zero cost")
+        negative = Transaction(-50, "Refund", "Returned item")
+
+        self.tracker.transactions = [zero, negative]
+        self.assertEqual(self.tracker.transactions[0].amount, 0)
+        self.assertEqual(self.tracker.transactions[1].amount, -50)
+
+    def test_filter_by_nonexistent_category(self):
+        t1 = Transaction(100, "Food", "Lunch")
+        self.tracker.transactions = [t1]
+        result = self.tracker.filter_by_category("Clothing")
+        self.assertEqual(result, [])
+
 
 if __name__ == '__main__':
     unittest.main()
